@@ -39,7 +39,7 @@ jobs:
 
         - name: Generating coverage
           run: |
-            coverage run manage.py test -v 2 
+            coverage run manage.py test -v 2
             coverage report
 
         - name: Lint
@@ -51,3 +51,10 @@ jobs:
           run: |
             cd ../
             flake8 . --statistics --max-complexity=10 --exit-zero
+
+        - name: Upload Python code as artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: python-code
+            path: |
+              **/*.py
