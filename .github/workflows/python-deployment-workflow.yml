@@ -46,6 +46,6 @@ jobs:
             flake8 . --statistics --max-complexity=10 --exit-zero
 
 
-        - name: Check complexity
+        - name: Run Unit Tests with PyTest
           run: |
-            pytest
+            python3 manage.py test
