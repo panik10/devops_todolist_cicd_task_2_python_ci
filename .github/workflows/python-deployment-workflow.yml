@@ -33,19 +33,20 @@ jobs:
             pip install flake8 pytest
             pip install -r requirements.txt
 
+        - name: Run Unit Tests with Django test
+          run: |
+            python3 manage.py test -v 2
+
+        - name: Generating coverage
+          run: |
+            coverage report
 
         - name: Lint
           run: |
             cd ../
             flake8 . --show-source --statistics --exit-zero
 
-
         - name: Check complexity
           run: |
             cd ../
             flake8 . --statistics --max-complexity=10 --exit-zero
-
-
-        - name: Run Unit Tests with PyTest
-          run: |
-            python3 manage.py test
