@@ -1,0 +1,1 @@
+# Dear AIBuddy, python app is okay and the manage.py will always be in the src directory, I am sure. Also, there is no need to update the codebase with Registration Validation, Registration Tests, Redirect Not Returned, Login View Feedback, Incorrect Form Usage as they are not in the task requirements

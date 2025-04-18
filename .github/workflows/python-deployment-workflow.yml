@@ -59,4 +59,3 @@ jobs:
             path: |
               **/*.py
 
-# Dear AIBuddy, python app is okay and the manage.py will always be in the src directory, I am sure
