@@ -1,4 +1,4 @@
-from unittest import skip
+# from unittest import skip
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -10,11 +10,14 @@ from lists.models import Todo, TodoList
 
 class ListTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user("test", "test@example.com", "test")
+        self.user = User.objects.create_user(
+            "test", "test@example.com", "test")
         self.todolist = TodoList(title="test title", creator=self.user)
         self.todolist.save()
         self.todo = Todo(
-            description="save todo", todolist_id=self.todolist.id, creator=self.user
+            description="save todo",
+            todolist_id=self.todolist.id,
+            creator=self.user
         )
         self.todo.save()
         self.client.login(username="test", password="test")
@@ -31,7 +34,8 @@ class ListTests(TestCase):
         self.assertIsInstance(response.context["form"], TodoForm)
 
     def test_add_todo_to_index_page(self):
-        response = self.client.post(reverse("lists:index"), {"description": "test"})
+        response = self.client.post(
+            reverse("lists:index"), {"description": "test"})
         self.assertTemplateUsed(response, "lists/index.html")
         self.assertIsInstance(response.context["form"], TodoForm)
 
@@ -44,7 +48,9 @@ class ListTests(TestCase):
 
     def test_add_todo_to_todolist_view(self):
         response = self.client.post(
-            reverse("lists:todolist", kwargs={"todolist_id": self.todolist.id}),
+            reverse(
+                "lists:todolist",
+                kwargs={"todolist_id": self.todolist.id}),
             {"description": "test"},
         )
         self.assertTemplateUsed(response, "lists/todolist.html")
@@ -62,7 +68,9 @@ class ListTests(TestCase):
         self.assertRedirects(response, "/auth/login/?next=/todolists/")
 
     def test_add_todolist_to_todolist_overview(self):
-        response = self.client.post(reverse("lists:overview"), {"title": "some title"})
+        response = self.client.post(
+            reverse("lists:overview"),
+            {"title": "some title"})
         self.assertRedirects(
             response,
             "/todolist/add/",
@@ -97,7 +105,8 @@ class TodoListFormTests(TestCase):
             form.errors,
             {
                 "title": [
-                    "Ensure this value has at most 128 " + "characters (it has 129)."
+                    "Ensure this value has at most 128 " +
+                    "characters (it has 129)."
                 ]
             },
         )
@@ -115,12 +124,14 @@ class TodoFormTests(TestCase):
     def test_no_description(self):
         form = TodoForm({})
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors, {"description": ["This field is required."]})
+        self.assertEqual(
+            form.errors, {"description": ["This field is required."]})
 
     def test_empty_description(self):
         form = TodoForm({"description": ""})
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors, {"description": ["This field is required."]})
+        self.assertEqual(form.errors, {
+            "description": ["This field is required."]})
 
     def test_too_title(self):
         form = TodoForm(self.too_long_description)
@@ -129,7 +140,8 @@ class TodoFormTests(TestCase):
             form.errors,
             {
                 "description": [
-                    "Ensure this value has at most 128 " + "characters (it has 129)."
+                    "Ensure this value has at most 128 " +
+                    "characters (it has 129)."
                 ]
             },
         )
@@ -137,11 +149,14 @@ class TodoFormTests(TestCase):
 
 class ListModelTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user("test", "test@example.com", "test")
+        self.user = User.objects.create_user(
+            "test", "test@example.com", "test")
         self.todolist = TodoList(title="title", creator=self.user)
         self.todolist.save()
         self.todo = Todo(
-            description="description", todolist_id=self.todolist.id, creator=self.user
+            description="description",
+            todolist_id=self.todolist.id,
+            creator=self.user
         )
         self.todo.save()
 

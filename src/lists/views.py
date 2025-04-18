@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from lists.forms import TodoForm, TodoListForm
@@ -16,7 +16,8 @@ def todolist(request, todolist_id):
         redirect("lists:add_todo", todolist_id=todolist_id)
 
     return render(
-        request, "lists/todolist.html", {"todolist": todolist, "form": TodoForm()}
+        request, "lists/todolist.html", {
+            "todolist": todolist, "form": TodoForm()}
     )
 
 

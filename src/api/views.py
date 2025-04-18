@@ -6,9 +6,10 @@ from lists.models import Todo, TodoList
 
 from django.http import HttpResponse
 from django.utils import timezone
-import time
+# import time
 
 startup_time = timezone.now()
+
 
 class IsCreatorOrReadOnly(permissions.BasePermission):
     """
@@ -60,9 +61,11 @@ class TodoViewSet(viewsets.ModelViewSet):
         creator = user if user.is_authenticated else None
         serializer.save(creator=creator)
 
+
 # Health Check View
 def health(request):
     return HttpResponse("Health OK", content_type="text/plain")
+
 
 # Readiness Check View
 def ready(request):
@@ -70,7 +73,9 @@ def ready(request):
     elapsed_time = timezone.now() - startup_time
     if elapsed_time.total_seconds() < 30:
         # Return HTTP 500 for the first 30 seconds after startup
-        return HttpResponse("Service not ready", status=500, content_type="text/plain")
+        return HttpResponse(
+            "Service not ready", status=500, content_type="text/plain")
     else:
         # After 30 seconds, return HTTP 200
-        return HttpResponse("Readiness OK", content_type="text/plain")
+        return HttpResponse(
+            "Readiness OK", content_type="text/plain")
