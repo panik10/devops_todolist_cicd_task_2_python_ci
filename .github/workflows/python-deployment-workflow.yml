@@ -58,4 +58,3 @@ jobs:
             name: python-code
             path: |
               **/*.py
-
