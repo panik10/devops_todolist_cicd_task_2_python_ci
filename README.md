@@ -11,18 +11,18 @@ To complete this task, you will need:
 
 In this project, I've created a GitHub Actions workflow that:
 
-    Runs on every push to the main and develop branches, and on pull requests to the main branch.
+- Runs on every push to the main and develop branches, and on pull requests to the main branch.
 
-    Includes a dynamic run name that contains the GitHub username and the commit SHA.
+- Includes a dynamic run name that contains the GitHub username and the commit SHA.
 
-    Runs a python-ci job with steps to:
+- Runs a python-ci job with steps to:
 
-        - Run tests.
+    - Run tests.
 
-        - Generate and display code coverage using coverage.
+    - Generate and display code coverage using coverage.
 
-        - Check code style and complexity using flake8 (non-blocking).
+    - Check code style and complexity using flake8 (non-blocking).
 
-        - Upload Python code as an artifact.
+    - Upload Python code as an artifact.
 
 Additionally, I’ve created a repository with this workflow and ensured that it successfully passes all checks on pull request events.
